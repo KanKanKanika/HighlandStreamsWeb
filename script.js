@@ -19,7 +19,7 @@ require([
   // ------------- ADD STATIONS  -------------
   view.when(function () {
 
-    fetch('Data/stations_for_sql.csv')
+    fetch('data/stations_for_sql.csv')
       .then(response => response.text())
       .then(text => {
         

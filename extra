@@ -1,0 +1,67 @@
+// ------------- ADD STATIONS  -------------
+  view.when(function () {
+
+    fetch('data/stations_for_sql.csv')
+      .then(response => response.text())
+      .then(text => {
+        
+        const rows = text.trim().split(/\r?\n/);
+        const headers = rows.shift().split(',');
+        
+        const stations = rows.map(line => {
+          const cols = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
+          const obj = {};
+          headers.forEach((h, i) => {
+            obj[h.trim()] = cols[i] ? cols[i].trim() : '';
+          });
+          return obj;
+        });
+
+        stations.forEach(st => {
+          const lat = parseFloat(st.lat);
+          const lon = parseFloat(st.lon);
+
+          if (!isNaN(lat) && !isNaN(lon)) {
+            
+            // Markers for each station
+            const pointGraphic = new Graphic({
+              geometry: {
+                type: "point",
+                latitude: lat,
+                longitude: lon
+              },
+              symbol: {
+                type: "simple-marker",
+                color: "#aa4242",
+                size: "10px",
+                outline: {
+                  color: "white",
+                  width: 1
+                }
+              },
+
+              // Popup info
+              attributes: {
+                station_no: (st.station_no || "").replace(/"/g, ""),
+                station_name: (st.station_name || "").replace(/"/g, "")
+              },
+            
+              popupTemplate: {
+                title: "{station_name}",
+                content: `
+                  <b>Station No:</b> {station_no}<br>
+                  <b>Name:</b> {station_name}
+                `
+              }
+            });
+
+            view.graphics.add(pointGraphic);
+          }
+        });
+
+        console.log("✔ Station points added to map.");
+      })
+      .catch(err => console.error("Error loading stations:", err));
+  });
+
+});

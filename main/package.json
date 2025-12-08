@@ -13,7 +13,9 @@
     "@arcgis/core": "^5.0.0-next.57",
     "@arcgis/map-components-react": "^5.0.0-next.83",
     "esri-loader": "^3.7.0",
+    "fs-extra": "^11.3.2",
     "leaflet": "^1.9.4",
+    "node-fetch": "^3.3.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-leaflet": "^5.0.0"

@@ -32,12 +32,10 @@ async function callAPI(params, maxRetries = 5) {
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
         try {
-            console.log(`📡 Requesting SEPA API (Attempt ${attempt})...`);
+            console.log(`Requesting SEPA API (Attempt ${attempt})...`);
 
             const response = await fetch(url, {
-                headers: {
-                    "User-Agent": "HighlandStreamsWeb (contact: email@example.com)",
-                },
+                
             });
 
             if (response.status === 429) throw new Error("HTTP 429: Rate limit exceeded");
@@ -49,7 +47,7 @@ async function callAPI(params, maxRetries = 5) {
 
             if (attempt < maxRetries) {
                 const delay = retryDelays[attempt - 1];
-                console.log(`⏳ Waiting ${delay / 1000}s before retry...`);
+                console.log(`Waiting ${delay / 1000}s before retry...`);
                 await wait(delay);
             } else {
                 console.error("❌ All retries failed. SEPA may be offline.");
@@ -62,7 +60,7 @@ async function callAPI(params, maxRetries = 5) {
 // ---------------- Main function ----------------------
 
 async function getAllStations() {
-    console.log("📡 Fetching full SEPA station list...");
+    console.log("Fetching full SEPA station list...");
 
     const params = {
         ...DEFAULT_PARAMS,
@@ -109,7 +107,7 @@ async function getAllStations() {
 
     await fs.writeFile(path.join(OUT_DIR, "stations_metadata_all.csv"), csv);
 
-    console.log(`\n🎉 SUCCESS: Saved ${stations.length} stations to src/data/`);
+    console.log(` SUCCESS: Saved ${stations.length} stations to src/data/`);
 }
 
 // Run

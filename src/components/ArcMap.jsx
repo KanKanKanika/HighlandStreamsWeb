@@ -4,7 +4,7 @@ import Map from "@arcgis/core/Map";
 import Locate from "@arcgis/core/widgets/Locate";
 import Graphic from "@arcgis/core/Graphic";
 import "@arcgis/core/assets/esri/themes/light/main.css";
-import stations from "../data/stations_metadata.json";
+import stations from "../data/station_metadata.json";
 
 const ArcMap = () => {
     const mapDiv = useRef(null);
